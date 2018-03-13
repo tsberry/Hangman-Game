@@ -4,29 +4,34 @@ var wordGuessed = [];
 var numGuesses = 6;
 var lettersGuessed = [];
 var guess = null;
+var words = ["gorilla", "turtle", "penguin", "chimpanzee", "elephant", "rhino"];
 
 function makeWord() {
-    currWord = "thomas";
-    wordGuessed = ["_","_","_","_","_","_"];
-}
-
-function getLetter() {
-    var letter = null;
-
-    // while(letter === null) {}
-    return letter;
+    var rand = Math.floor(Math.random() * (words.length));
+    console.log(rand);
+    currWord = words[rand];
+    wordGuessed = [];
+    for(var i = 0; i < currWord.length; i++) {
+        wordGuessed = wordGuessed.concat("_");
+    }
 }
 
 function guessLetter(letter) {
-    lettersGuessed = lettersGuessed.concat(letter);
+    var added = false;
     var found = false;
-    for (i = 0; i < currWord.length; i++) {
+    for(i = 0; i < currWord.length; i++) {
         if (currWord.charAt(i) === letter) {
             wordGuessed[i] = letter;
             found = true;
         }
     }
-    if (!found) numGuesses--;
+    if(lettersGuessed.indexOf(letter) == -1) {
+        lettersGuessed = lettersGuessed.concat(letter);
+        added = true;
+    }
+    if(!found && added) {
+        numGuesses--;
+    }
 }
 
 function printWins() {
@@ -34,7 +39,12 @@ function printWins() {
 }
 
 function printWord() {
-    document.getElementById("word-spaces").innerHTML = wordGuessed;
+    var wordSpaced = "";
+    for(var i = 0; i < wordGuessed.length-1; i++) {
+        wordSpaced += wordGuessed[i] + "  ";
+    }
+    wordSpaced += wordGuessed[wordGuessed.length-1];
+    document.getElementById("word-spaces").innerHTML = wordSpaced;
 }
 
 function printGuesses() {
