@@ -1,14 +1,13 @@
 var numWins = 0;
 var currWord = "";
 var wordGuessed = [];
-var numGuesses = 6;
+var numGuesses = 8;
 var lettersGuessed = [];
 var guess = null;
 var words = ["gorilla", "turtle", "penguin", "chimpanzee", "elephant", "rhino"];
 
 function makeWord() {
     var rand = Math.floor(Math.random() * (words.length));
-    console.log(rand);
     currWord = words[rand];
     wordGuessed = [];
     for(var i = 0; i < currWord.length; i++) {
@@ -40,10 +39,9 @@ function printWins() {
 
 function printWord() {
     var wordSpaced = "";
-    for(var i = 0; i < wordGuessed.length-1; i++) {
+    for(var i = 0; i < wordGuessed.length; i++) {
         wordSpaced += wordGuessed[i] + "  ";
     }
-    wordSpaced += wordGuessed[wordGuessed.length-1];
     document.getElementById("word-spaces").innerHTML = wordSpaced;
 }
 
@@ -52,7 +50,12 @@ function printGuesses() {
 }
 
 function printLetters() {
-    document.getElementById("letters-guessed").innerHTML = lettersGuessed;
+    var lettersSpaced = "";
+    for(var i = 0; i < lettersGuessed.length; i++) {
+        lettersSpaced += lettersGuessed[i] + "  ";
+    }
+    lettersSpaced = lettersSpaced.toUpperCase();
+    document.getElementById("letters-guessed").innerHTML = lettersSpaced;
 }
 
 function equals(arr1, arr2) {
@@ -65,7 +68,7 @@ function equals(arr1, arr2) {
 }
 function start() {
     makeWord();
-    numGuesses = 6;
+    numGuesses = 8;
     lettersGuessed = [];
     printWins();
     printWord();
@@ -88,8 +91,6 @@ function update(guess) {
         alert("You Lose!");
         start();
     }
-    console.log(currWord.split(""));
-    console.log(wordGuessed);
 }
 
 start();
